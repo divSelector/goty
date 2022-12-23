@@ -1,0 +1,4 @@
+assets.unused/*
+__pychache__/
+venv/
+
