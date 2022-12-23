@@ -20,9 +20,15 @@ class Player(arcade.SpriteSolidColor):
             self.left = 0
             self.change_x = 0
 
-    def move(self):
+    def walk(self):
         self.change_x = 0
 
+        if self.game.left_pressed and not self.game.right_pressed:
+            self.change_x = -self.move_speed
+        elif self.game.right_pressed and not self.game.left_pressed:
+            self.change_x = self.move_speed
+
+    def jump(self):
         if self.game.jump_pressed:
             if self.game.physics.can_jump():
                 self.change_y = self.jump_speed
@@ -32,11 +38,6 @@ class Player(arcade.SpriteSolidColor):
         elif not self.game.jump_pressed:
             if not self.game.physics.can_jump():
                 self.change_y = self.change_y / 2
-
-        if self.game.left_pressed and not self.game.right_pressed:
-            self.change_x = -self.move_speed
-        elif self.game.right_pressed and not self.game.left_pressed:
-            self.change_x = self.move_speed
 
     def center_camera(self):
         screen_center_x = self.center_x - (self.camera.viewport_width / 2)

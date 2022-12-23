@@ -84,16 +84,16 @@ class Game(arcade.Window):
 
         if key == arcade.key.Z:
             self.jump_pressed = True
-            self.player.move()
+            self.player.jump()
         elif key == arcade.key.DOWN:
             self.down_pressed = True
             #self.player.move()
-        elif key == arcade.key.LEFT or key == arcade.key.A:
+        elif key in [arcade.key.LEFT, arcade.key.A]:
             self.left_pressed = True
-            self.player.move()
-        elif key == arcade.key.RIGHT or key == arcade.key.D:
+            self.player.walk()
+        elif key in [arcade.key.RIGHT, arcade.key.D]:
             self.right_pressed = True
-            self.player.move()
+            self.player.walk()
 
         print("PRESSED")
         self.log_user_input()
@@ -103,16 +103,16 @@ class Game(arcade.Window):
 
         if key == arcade.key.Z:
             self.jump_pressed = False
-            self.player.move()
+            self.player.jump()
         elif key == arcade.key.DOWN:
             self.down_pressed = False
             #self.player.move()
-        elif key == arcade.key.LEFT or key == arcade.key.A:
+        elif key in [arcade.key.LEFT, arcade.key.A]:
             self.left_pressed = False
-            self.player.move()
-        elif key == arcade.key.RIGHT or key == arcade.key.D:
+            self.player.walk()
+        elif key in [arcade.key.RIGHT, arcade.key.D]:
             self.right_pressed = False
-            self.player.move()
+            self.player.walk()
 
         print("RELEASED")
         self.log_user_input()
