@@ -63,10 +63,11 @@ class Player(Entity):
 
     def jump(self):
         if self.game.jump_pressed:
-            if self.game.physics.can_jump():
+            if self.game.physics.can_jump() and not self.jumping:
                 self.change_y = self.jump_speed
                 self.game.play_sound(self.game.jump_sound)
-                self.game.jump_pressed = False
+                #self.game.jump_pressed = False
+                self.jumping = True
 
         elif not self.game.jump_pressed:
             if not self.game.physics.can_jump():
