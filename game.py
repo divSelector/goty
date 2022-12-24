@@ -29,17 +29,32 @@ class Game(arcade.Window):
         self.collect_coin_sound = arcade.load_sound(":resources:sounds/coin1.wav")
         self.jump_sound = arcade.load_sound(":resources:sounds/jump1.wav")
 
-    def init_player(self, dimensions, position, color):
+    #def init_player(self, dimensions, position, color):
+        #"""
+        #Build a prototype rectangle sprite for player from dimensions (width, height), color, and
+        #position, which is specified in pixels from the left and pixels from bottom.
+        #"""
+        #width, height = dimensions
+        #width = int(width * PLAYER_SCALING)
+        #height = int(height * PLAYER_SCALING)
+        #self.player = Player(
+            #width=width, height=height, color=color,
+            #move_speed=MOVEMENT_SPEED, jump_speed=JUMP_SPEED
+        #)
+        #self.player.game = self
+        #self.player.scene = self.scene
+        #self.player.camera = self.camera
+        #self.player.setup(position)
+
+    def init_player(self, sprite, position):
         """
         Build a prototype rectangle sprite for player from dimensions (width, height), color, and
         position, which is specified in pixels from the left and pixels from bottom.
         """
-        width, height = dimensions
-        width = int(width * PLAYER_SCALING)
-        height = int(height * PLAYER_SCALING)
         self.player = Player(
-            width=width, height=height, color=color,
-            move_speed=MOVEMENT_SPEED, jump_speed=JUMP_SPEED
+            sprite=sprite,
+            move_speed=MOVEMENT_SPEED,
+            jump_speed=JUMP_SPEED
         )
         self.player.game = self
         self.player.scene = self.scene
@@ -64,9 +79,13 @@ class Game(arcade.Window):
         # from the map as SpriteLists in the scene in the proper order.
         self.scene = arcade.Scene.from_tilemap(self.tile_map)
 
+        #self.init_player(
+            #dimensions=(TILE_SIZE / 2, TILE_SIZE),
+            #color=arcade.color.WHITE,
+            #position=(100, TILE_SIZE)
+        #)
         self.init_player(
-            dimensions=(TILE_SIZE / 2, TILE_SIZE),
-            color=arcade.color.WHITE,
+            sprite="player",
             position=(100, TILE_SIZE)
         )
 
@@ -121,6 +140,7 @@ class Game(arcade.Window):
         """ Movement and game logic """
         self.physics.update()
         self.scene.update()
+        self.player.update_animation(delta_time)
 
         coin_hit_list = arcade.check_for_collision_with_list(
             self.player, self.scene.get_sprite_list("Coins")

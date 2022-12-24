@@ -1,11 +1,17 @@
 import arcade
+from constants import *
+from entity import Entity
 
-class Player(arcade.SpriteSolidColor):
 
-    def __init__(self, width, height, color, move_speed, jump_speed):
-        super().__init__(width, height, color)
+class Player(Entity):
+
+    def __init__(self, sprite, move_speed, jump_speed):
+        super().__init__(sprite)
         self.move_speed = move_speed
         self.jump_speed = jump_speed
+
+        self.jumping = False
+        self.is_on_ladder = False
 
     def setup(self, position):
         left, bottom = position
@@ -19,6 +25,33 @@ class Player(arcade.SpriteSolidColor):
         if self.left < 0:
             self.left = 0
             self.change_x = 0
+
+    def update_animation(self, delta_time: float = 1 / 60):
+
+        # Figure out if we need to flip face left or right
+        if self.change_x < 0 and self.facing_direction == FacingDirection.RIGHT:
+            self.facing_direction = FacingDirection.LEFT
+        elif self.change_x > 0 and self.facing_direction == FacingDirection.LEFT:
+            self.facing_direction = FacingDirection.RIGHT
+
+        # Jumping animation
+        if self.change_y > 0 and not self.is_on_ladder:
+            self.texture = self.jump_texture_pair[self.facing_direction.value]
+            return
+        elif self.change_y < 0 and not self.is_on_ladder:
+            self.texture = self.fall_texture_pair[self.facing_direction.value]
+            return
+
+        # Idle animation
+        if self.change_x == 0:
+            self.texture = self.idle_texture_pair[self.facing_direction.value]
+            return
+
+        # Walking animation
+        self.cur_texture += 1
+        if self.cur_texture > 7:
+            self.cur_texture = 0
+        self.texture = self.walk_textures[self.cur_texture][self.facing_direction.value]
 
     def walk(self):
         self.change_x = 0
