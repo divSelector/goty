@@ -1,0 +1,14 @@
+{ "columns":24,
+ "image":"..\/..\/..\/..\/..\/mnt\/hdd\/firefox\/tileset(1).v1.png",
+ "imageheight":140,
+ "imagewidth":3360,
+ "margin":0,
+ "name":"tileset(1).v1",
+ "spacing":0,
+ "tilecount":24,
+ "tiledversion":"1.9.2",
+ "tileheight":140,
+ "tilewidth":140,
+ "type":"tileset",
+ "version":"1.9"
+}
