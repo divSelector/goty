@@ -1,4 +1,5 @@
 assets.unused/*
 __pycache__/*
 venv/*
+*.kate-swp
 
