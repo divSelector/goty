@@ -19,3 +19,4 @@ class FacingDirection(Enum):
     RIGHT = 0
     LEFT = 1
 
+LEVEL_ONE_MAP = "assets/tilemaps/map.json"

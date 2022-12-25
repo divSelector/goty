@@ -51,7 +51,7 @@ class Game(arcade.Window):
 
         # Read in the tiled map
         self.tile_map = arcade.load_tilemap(
-            ":resources:tiled_maps/map.json",
+            LEVEL_ONE_MAP,
             TILE_SCALING, {
                 "Platforms": {
                     "use_spatial_hash": True,
