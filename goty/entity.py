@@ -1,5 +1,5 @@
 import arcade
-from constants import *
+from goty.constants import *
 
 
 class Entity(arcade.Sprite):

@@ -1,6 +1,6 @@
 import arcade
-from constants import *
-from entity import Entity
+from goty.constants import *
+from goty.entity import Entity
 
 
 class Player(Entity):

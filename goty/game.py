@@ -1,7 +1,7 @@
 import arcade
 
-from constants import *
-from player import Player
+from goty.constants import *
+from goty.player import Player
 
 class Game(arcade.Window):
 

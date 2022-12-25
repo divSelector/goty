@@ -45,8 +45,7 @@ class SpriteFrame(Enum):
 
 
 sprite_map_path = Path(filename)
-name = sprite_map_path.stem
-sprite_dir = Path.cwd() / name
+sprite_dir = Path.cwd() / sprite_map_path.stem
 if not sprite_dir.exists():
     sprite_dir.mkdir()
 sheet = Image.open(sprite_map_path)

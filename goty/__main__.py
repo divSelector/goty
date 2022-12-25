@@ -1,7 +1,7 @@
 import arcade
 
-from constants import SCREEN_TITLE, SCREEN_WIDTH, SCREEN_HEIGHT
-from game import Game
+from goty.constants import SCREEN_TITLE, SCREEN_WIDTH, SCREEN_HEIGHT
+from goty.game import Game
 
 def main():
     game = Game(
