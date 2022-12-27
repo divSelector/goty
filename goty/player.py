@@ -11,6 +11,7 @@ class Player(Entity):
         self.jump_speed = jump_speed
 
         self.jumping = False
+        self.crouching = False
         self.is_on_ladder = False
 
     def setup(self, position):
@@ -43,7 +44,7 @@ class Player(Entity):
             return
 
         # Idle animation
-        if self.change_x == 0:
+        if self.change_x == 0 and not self.crouching:
             self.texture = self.idle_texture_pair[self.facing_direction.value]
             return
 
@@ -55,12 +56,23 @@ class Player(Entity):
         direction = self.facing_direction.value
         self.texture = self.walk_textures[frame][direction]
 
+        # Crouch animation
+        if self.crouching:
+            self.texture = self.crouch_texture_pair[self.facing_direction.value]
+            # Logic to change direction while crouching
+            if self.game.left_pressed:
+                self.texture = self.crouch_texture_pair[FacingDirection.LEFT.value]
+            if self.game.right_pressed:
+                self.texture = self.crouch_texture_pair[FacingDirection.RIGHT.value]
+
+
+
     def walk(self):
         self.change_x = 0
 
-        if self.game.left_pressed and not self.game.right_pressed:
+        if self.game.left_pressed and not self.game.right_pressed and not self.crouching:
             self.change_x = -self.move_speed
-        elif self.game.right_pressed and not self.game.left_pressed:
+        elif self.game.right_pressed and not self.game.left_pressed and not self.crouching:
             self.change_x = self.move_speed
 
     def jump(self):
@@ -68,12 +80,17 @@ class Player(Entity):
             if self.game.physics.can_jump() and not self.jumping:
                 self.change_y = self.jump_speed
                 self.game.play_sound(self.game.jump_sound)
-                #self.game.jump_pressed = False
                 self.jumping = True
 
         elif not self.game.jump_pressed:
             if not self.game.physics.can_jump():
                 self.change_y = self.change_y / 2
+
+    def crouch(self):
+        if self.game.down_pressed:
+            if self.game.physics.can_jump() and not self.jumping:
+                # TODO crouching hit box change logic
+                self.crouching = True
 
     def center_camera(self):
         screen_center_x = self.center_x - (self.camera.viewport_width / 2)

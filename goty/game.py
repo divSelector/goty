@@ -83,7 +83,7 @@ class Game(arcade.Window):
             self.player.jump()
         elif key == arcade.key.DOWN:
             self.down_pressed = True
-            #self.player.move()
+            self.player.crouch()
         elif key in [arcade.key.LEFT, arcade.key.A]:
             self.left_pressed = True
             self.player.walk()
@@ -103,7 +103,8 @@ class Game(arcade.Window):
             self.player.jumping = False
         elif key == arcade.key.DOWN:
             self.down_pressed = False
-            #self.player.move()
+            self.player.crouch()
+            self.player.crouching = False
         elif key in [arcade.key.LEFT, arcade.key.A]:
             self.left_pressed = False
             self.player.walk()
@@ -155,7 +156,8 @@ class Game(arcade.Window):
             f"JUMP: {self.jump_pressed}, DOWN: {self.down_pressed}, "+\
                 f"LEFT: {self.left_pressed}, RIGHT: {self.right_pressed}"+\
                     f"\n\tPLAYER POSITION: {self.player.position}"+\
-                        f"\n\tPLAYER_CHANGE ({self.player.change_x}, {self.player.change_y})")
+                        f"\n\tPLAYER_CHANGE ({self.player.change_x}, {self.player.change_y})"+\
+                            f"IS_CROUCHING: {self.player.crouching}")
 
 if __name__ == "__main__":
     pass
