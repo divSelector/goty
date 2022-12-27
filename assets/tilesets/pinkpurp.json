@@ -8,6 +8,25 @@
  "tilecount":24,
  "tiledversion":"1.9.2",
  "tileheight":140,
+ "tiles":[
+        {
+         "id":12,
+         "properties":[
+                {
+                 "name":"Points",
+                 "type":"int",
+                 "value":20
+                }]
+        }, 
+        {
+         "id":13,
+         "properties":[
+                {
+                 "name":"Points",
+                 "type":"int",
+                 "value":10
+                }]
+        }],
  "tilewidth":140,
  "type":"tileset",
  "version":"1.9"

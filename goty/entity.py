@@ -49,6 +49,45 @@ class Entity(arcade.Sprite):
         #self.set_hit_box(self.texture.hit_box_points)
 
 
+    def update_animation(self, delta_time: float = 1 / 60):
+
+        # Figure out if we need to flip face left or right
+        if self.change_x < 0 and self.facing_direction == FacingDirection.RIGHT:
+            self.facing_direction = FacingDirection.LEFT
+        elif self.change_x > 0 and self.facing_direction == FacingDirection.LEFT:
+            self.facing_direction = FacingDirection.RIGHT
+
+        # Jumping animation
+        if self.change_y > 0 and not self.is_on_ladder:
+            self.texture = self.jump_texture_pair[self.facing_direction.value]
+            return
+        elif self.change_y < 0 and not self.is_on_ladder:
+            self.texture = self.fall_texture_pair[self.facing_direction.value]
+            return
+
+        # Idle animation
+        if self.change_x == 0 and not self.crouching:
+            self.texture = self.idle_texture_pair[self.facing_direction.value]
+            return
+
+        # Walking animation
+        self.cur_texture += 1
+        if self.cur_texture > 7 * UPDATES_PER_FRAME:
+            self.cur_texture = 0
+        frame = self.cur_texture // UPDATES_PER_FRAME
+        direction = self.facing_direction.value
+        self.texture = self.walk_textures[frame][direction]
+
+        # Crouch animation
+        if self.crouching:
+            self.texture = self.crouch_texture_pair[self.facing_direction.value]
+            # Logic to change direction while crouching
+            if self.game.left_pressed:
+                self.texture = self.crouch_texture_pair[FacingDirection.LEFT.value]
+            if self.game.right_pressed:
+                self.texture = self.crouch_texture_pair[FacingDirection.RIGHT.value]
+
+
     def get_textures(self, value):
         def get_pair(filename):
             return (

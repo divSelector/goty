@@ -126,9 +126,16 @@ class Game(arcade.Window):
         )
 
         for coin in coin_hit_list:
+            print(coin.properties)
+            # Figure out how many points this coin is worth
+            if "Points" not in coin.properties:
+                print("Warning, collected a coin without a Points property.")
+            else:
+                points = int(coin.properties["Points"])
+                self.gems += points
+
             coin.remove_from_sprite_lists()
             self.play_sound(self.collect_coin_sound)
-            self.gems += 1
 
         self.player.center_camera()
 
