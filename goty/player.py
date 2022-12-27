@@ -65,8 +65,6 @@ class Player(Entity):
             if self.game.right_pressed:
                 self.texture = self.crouch_texture_pair[FacingDirection.RIGHT.value]
 
-
-
     def walk(self):
         self.change_x = 0
 
