@@ -31,8 +31,7 @@ class Game(arcade.Window):
 
     def init_player(self, sprite, position):
         """
-        Build a prototype rectangle sprite for player from dimensions (width, height), color, and
-        position, which is specified in pixels from the left and pixels from bottom.
+        Initializes a player... passes the game, camera, and scene to the player.
         """
         self.player = Player(
             sprite=sprite,

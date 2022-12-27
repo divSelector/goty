@@ -49,9 +49,11 @@ class Player(Entity):
 
         # Walking animation
         self.cur_texture += 1
-        if self.cur_texture > 7:
+        if self.cur_texture > 7 * UPDATES_PER_FRAME:
             self.cur_texture = 0
-        self.texture = self.walk_textures[self.cur_texture][self.facing_direction.value]
+        frame = self.cur_texture // UPDATES_PER_FRAME
+        direction = self.facing_direction.value
+        self.texture = self.walk_textures[frame][direction]
 
     def walk(self):
         self.change_x = 0
