@@ -1,0 +1,14 @@
+{ "columns":16,
+ "image":"..\/tilesets\/scifi-pipes-128x128.png",
+ "imageheight":14080,
+ "imagewidth":2048,
+ "margin":0,
+ "name":"scifi-pipes",
+ "spacing":0,
+ "tilecount":1760,
+ "tiledversion":"1.9.2",
+ "tileheight":128,
+ "tilewidth":128,
+ "type":"tileset",
+ "version":"1.9"
+}
