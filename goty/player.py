@@ -35,6 +35,12 @@ class Player(Entity):
         elif self.game.right_pressed and not self.game.left_pressed and not self.crouching:
             self.change_x = self.move_speed
 
+        # Handle Change Direction While Crouching
+        elif self.game.left_pressed and not self.game.right_pressed and self.crouching:
+            self.facing_direction = FacingDirection.LEFT
+        elif self.game.right_pressed and not self.game.left_pressed and self.crouching:
+            self.facing_direction = FacingDirection.RIGHT
+
     def jump(self):
         if self.game.jump_pressed:
             if self.game.physics.can_jump() and not self.jumping:

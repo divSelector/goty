@@ -80,11 +80,6 @@ class Entity(arcade.Sprite):
 
         # Crouch animation
         if self.crouching:
-            # Logic to change direction while crouching
-            if self.game.left_pressed:
-                self.facing_direction = FacingDirection.LEFT
-            if self.game.right_pressed:
-                self.facing_direction = FacingDirection.RIGHT
             self.texture = self.crouch_texture_pair[self.facing_direction.value]
 
 
