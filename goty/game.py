@@ -84,11 +84,11 @@ class Game(arcade.Window):
 
             else:
                 raise Exception(f"Unknown enemy type {enemy_type}.")
-            enemy.center_x = math.floor(
+            enemy.left = math.floor(
                 cartesian[0] * TILE_SCALING * self.tile_map.tile_width
             )
-            enemy.center_y = math.floor(
-                (cartesian[1] + 1) * (self.tile_map.tile_height * TILE_SCALING)
+            enemy.bottom = math.floor(
+                (cartesian[1]) * (self.tile_map.tile_height * TILE_SCALING)
             )
             self.scene.add_sprite(LAYER_NAME_ENEMIES, enemy)
 
