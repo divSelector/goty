@@ -49,8 +49,13 @@ class Player(Entity):
     def crouch(self):
         if self.game.down_pressed:
             if self.game.physics.can_jump() and not self.jumping:
+                self.change_x = 0
                 # TODO crouching hit box change logic
                 self.crouching = True
+        elif not self.game.down_pressed and self.game.left_pressed:
+            self.change_x = -self.move_speed
+        elif not self.game.down_pressed and self.game.right_pressed:
+            self.change_x = self.move_speed
 
     def center_camera(self):
         screen_center_x = self.center_x - (self.camera.viewport_width / 2)
