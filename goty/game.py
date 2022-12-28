@@ -1,7 +1,9 @@
 import arcade
+import math
 
 from goty.constants import *
 from goty.player import Player
+from goty.enemy import RedPantsEnemy, BluePantsEnemy, GreenPantsEnemy, GreyPantsEnemy
 
 class Game(arcade.Window):
 
@@ -54,7 +56,7 @@ class Game(arcade.Window):
         self.tile_map = arcade.load_tilemap(
             LEVEL_ONE_MAP,
             TILE_SCALING, {
-                "Platforms": {
+                LAYER_NAME_PLATFORMS: {
                     "use_spatial_hash": True,
             },
         })
@@ -62,6 +64,33 @@ class Game(arcade.Window):
         # Initialize Scene with our TileMap, this will automatically add all layers
         # from the map as SpriteLists in the scene in the proper order.
         self.scene = arcade.Scene.from_tilemap(self.tile_map)
+
+        # -- Enemies
+        enemies_layer = self.tile_map.object_lists[LAYER_NAME_ENEMIES]
+
+        for enemy_obj in enemies_layer:
+            cartesian = self.tile_map.get_cartesian(
+                enemy_obj.shape[0], enemy_obj.shape[1]
+            )
+            enemy_type = enemy_obj.properties["type"]
+            if enemy_type == "red_pants":
+                enemy = RedPantsEnemy()
+            elif enemy_type == "green_pants":
+                enemy = GreenPantsEnemy()
+            elif enemy_type == "grey_pants":
+                enemy = GreyPantsEnemy()
+            elif enemy_type == "blue_pants":
+                enemy = BluePantsEnemy()
+
+            else:
+                raise Exception(f"Unknown enemy type {enemy_type}.")
+            enemy.center_x = math.floor(
+                cartesian[0] * TILE_SCALING * self.tile_map.tile_width
+            )
+            enemy.center_y = math.floor(
+                (cartesian[1] + 1) * (self.tile_map.tile_height * TILE_SCALING)
+            )
+            self.scene.add_sprite(LAYER_NAME_ENEMIES, enemy)
 
         self.init_player(
             sprite="player",

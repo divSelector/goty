@@ -9,6 +9,7 @@ class Player(Entity):
         super().__init__(sprite)
         self.move_speed = move_speed
         self.jump_speed = jump_speed
+        self.facing_direction = FacingDirection.RIGHT
 
         self.jumping = False
         self.crouching = False

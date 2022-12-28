@@ -20,4 +20,7 @@ class FacingDirection(Enum):
     RIGHT = 0
     LEFT = 1
 
-LEVEL_ONE_MAP = "assets/tilemaps/map.json"
+LEVEL_ONE_MAP = "assets/tilemaps/map2.json"
+
+LAYER_NAME_PLATFORMS = "Platforms"
+LAYER_NAME_ENEMIES = "Enemies"
