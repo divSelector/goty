@@ -14,8 +14,8 @@
          "properties":[
                 {
                  "name":"Points",
-                 "type":"int",
-                 "value":20
+                 "type":"string",
+                 "value":"20"
                 }]
         }, 
         {
@@ -23,8 +23,8 @@
          "properties":[
                 {
                  "name":"Points",
-                 "type":"int",
-                 "value":10
+                 "type":"string",
+                 "value":"10"
                 }]
         }],
  "tilewidth":140,

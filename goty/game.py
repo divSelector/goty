@@ -45,8 +45,10 @@ class Game(arcade.Window):
 
     def setup_level_one(self):
         """Set up the game here. Call this function to start level one."""
-        self.camera = arcade.Camera(self.width, self.height)
-        self.hud = arcade.Camera(self.width, self.height)
+        #self.camera = arcade.Camera(self.width, self.height)
+        #self.hud = arcade.Camera(self.width, self.height)
+        self.camera = arcade.Camera()
+        self.hud = arcade.Camera()
 
         # Read in the tiled map
         self.tile_map = arcade.load_tilemap(
