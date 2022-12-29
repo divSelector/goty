@@ -11,19 +11,14 @@ class Player(Entity):
         self.jump_speed = jump_speed
         self.facing_direction = FacingDirection.RIGHT
 
-        self.jumping = False
-        self.crouching = False
-        self.is_on_ladder = False
-
     def setup(self, position):
         left, bottom = position
         self.left = left
         self.bottom = bottom
         self.scene.add_sprite_list("Player")
         self.scene.add_sprite("Player", self)
-        self.scene.add_sprite("Player", self.equip("robe01"))
-        self.scene.add_sprite("Player", self.equip("hat02"))
-        self.scene.add_sprite("Player", self.equip("book02"))
+        for eq_sprite in ["robe01", "hat02", "book02"]:
+            self.scene.add_sprite("Player", self.equip(eq_sprite))
 
     def update(self):
         # Check for out-of-bounds

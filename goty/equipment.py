@@ -3,7 +3,18 @@ from goty.constants import *
 from goty.entity import Entity
 
 
+def get_equip_names(eq_list):
+    return [eq_name + str(i).zfill(2)
+     for i in range(1,9)
+     for eq_name in eq_list]
+
+
 class Equipment(Entity):
+
+    body_items = get_equip_names(['armor', 'robe'])
+    accesory_items = get_equip_names(['book', 'shield'])
+    head_items = get_equip_names(['helm', 'hat'])
+
     def __init__(self, equipment_sprite: str, sprite_to_equip: arcade.Sprite):
         super().__init__(equipment_sprite)
         self.equipper = sprite_to_equip

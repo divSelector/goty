@@ -7,8 +7,6 @@ class Enemy(Entity):
 
     def __init__(self, sprite):
         super().__init__(sprite)
-        self.facing_direction = FacingDirection.LEFT
-        self.texture = self.idle_texture_pair[self.facing_direction.value]
 
     def face_player(self):
         if self.game.player.center_x < self.center_x:

@@ -1,6 +1,7 @@
 import arcade
 from goty.constants import *
 
+
 class Entity(arcade.Sprite):
     PATH_SPRITES = "assets/sprites"
 
@@ -8,6 +9,10 @@ class Entity(arcade.Sprite):
         super().__init__()
         self.sprite_name = sprite
         self.facing_direction = FacingDirection.RIGHT
+
+        self.jumping = False
+        self.crouching = False
+        self.is_on_ladder = False
 
         # Used for image sequences
         self.cur_texture = 0

@@ -1,10 +1,11 @@
 import arcade
 import math
-
+import random
 from goty.constants import *
 from goty.player import Player
 from goty.enemy import RedPantsEnemy, BluePantsEnemy, GreenPantsEnemy, GreyPantsEnemy
 from goty.physics import PhysicsEngine
+from goty.equipment import Equipment
 
 class Game(arcade.Window):
 
@@ -17,7 +18,6 @@ class Game(arcade.Window):
         self.camera = None
         self.hud = None
         self.tile_map = None
-        self.enemies = None
 
         self.gems = 0
 
@@ -99,7 +99,13 @@ class Game(arcade.Window):
             enemy.bottom = math.floor(
                 (cartesian[1]) * (self.tile_map.tile_height * TILE_SCALING)
             )
+
             self.scene.add_sprite(LAYER_NAME_ENEMIES, enemy)
+            for eq_sprite in [random.choice(Equipment.body_items),
+                              random.choice(Equipment.accesory_items),
+                              random.choice(Equipment.head_items)]:
+                self.scene.add_sprite(LAYER_NAME_ENEMIES, enemy.equip(eq_sprite))
+
 
         self.init_player(
             sprite="player",
