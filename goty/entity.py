@@ -1,7 +1,6 @@
 import arcade
 from goty.constants import *
 
-
 class Entity(arcade.Sprite):
     PATH_SPRITES = "assets/sprites"
 
@@ -15,7 +14,6 @@ class Entity(arcade.Sprite):
         self.scale = PLAYER_SCALING
         self.animations = {}
 
-        self.equip_textures = []
         self.idle_texture_pair = self.get_textures("stand_idle.png")
         self.stand_damaged_texture_pair = self.get_textures("stand_damaged.png")
         self.jump_texture_pair = self.get_textures("jump_air.png")
@@ -99,13 +97,4 @@ class Entity(arcade.Sprite):
         return Equipment(equip_name, self)
 
 
-
-class Equipment(Entity):
-    def __init__(self, equipment_sprite: str, sprite_to_equip: arcade.Sprite):
-        super().__init__(equipment_sprite)
-        self.equipped_by = sprite_to_equip
-        self.left = self.equipped_by.left
-        self.bottom = self.equipped_by.bottom
-        self.facing_direction = self.equipped_by.facing_direction
-        self.texture = self.idle_texture_pair[self.facing_direction.value]
-
+from goty.equipment import Equipment  # This is the only way to do this without circular import
