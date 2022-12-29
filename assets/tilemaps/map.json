@@ -89,6 +89,24 @@
                  "width":0,
                  "x":2200,
                  "y":2096
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":14,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"red_pants"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":2537.33333333333,
+                 "y":1353.33333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -111,7 +129,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":13,
+ "nextobjectid":15,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

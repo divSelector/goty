@@ -4,6 +4,7 @@ import math
 from goty.constants import *
 from goty.player import Player
 from goty.enemy import RedPantsEnemy, BluePantsEnemy, GreenPantsEnemy, GreyPantsEnemy
+from goty.physics import PhysicsEngine
 
 class Game(arcade.Window):
 
@@ -16,6 +17,7 @@ class Game(arcade.Window):
         self.camera = None
         self.hud = None
         self.tile_map = None
+        self.enemies = None
 
         self.gems = 0
 
@@ -68,6 +70,7 @@ class Game(arcade.Window):
         # -- Enemies
         enemies_layer = self.tile_map.object_lists[LAYER_NAME_ENEMIES]
 
+
         for enemy_obj in enemies_layer:
             cartesian = self.tile_map.get_cartesian(
                 enemy_obj.shape[0], enemy_obj.shape[1]
@@ -100,10 +103,11 @@ class Game(arcade.Window):
         if self.tile_map.background_color:
             arcade.set_background_color(self.tile_map.background_color)
 
-        self.physics = arcade.PhysicsEnginePlatformer(
+        self.physics = PhysicsEngine(
             self.player,
             gravity_constant=GRAVITY,
-            walls=self.scene.get_sprite_list("Platforms")
+            walls=self.scene.get_sprite_list(LAYER_NAME_PLATFORMS),
+            enemy_sprites=self.scene.get_sprite_list(LAYER_NAME_ENEMIES)
         )
 
     def on_key_press(self, key, modifiers):
@@ -173,7 +177,7 @@ class Game(arcade.Window):
     def on_draw(self):
         self.clear()
         self.camera.use()
-        self.scene.draw()
+        self.scene.draw(pixelated=True)
         self.hud.use()
 
         score_text = f"Gems: {self.gems}"
