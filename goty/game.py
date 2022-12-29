@@ -47,6 +47,12 @@ class Game(arcade.Window):
         self.player.camera = self.camera
         self.player.setup(position)
 
+    def init_enemy(self, enemy_class):
+        enemy = enemy_class()
+        enemy.game = self
+        return enemy
+
+
     def setup_level_one(self):
         """Set up the game here. Call this function to start level one."""
         #self.camera = arcade.Camera(self.width, self.height)
@@ -77,13 +83,13 @@ class Game(arcade.Window):
             )
             enemy_type = enemy_obj.properties["type"]
             if enemy_type == "red_pants":
-                enemy = RedPantsEnemy()
+                enemy = self.init_enemy(RedPantsEnemy)
             elif enemy_type == "green_pants":
-                enemy = GreenPantsEnemy()
+                enemy = self.init_enemy(GreenPantsEnemy)
             elif enemy_type == "grey_pants":
-                enemy = GreyPantsEnemy()
+                enemy = self.init_enemy(GreyPantsEnemy)
             elif enemy_type == "blue_pants":
-                enemy = BluePantsEnemy()
+                enemy = self.init_enemy(BluePantsEnemy)
 
             else:
                 raise Exception(f"Unknown enemy type {enemy_type}.")

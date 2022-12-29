@@ -5,7 +5,7 @@
  "layers":[
         {
          "compression":"zlib",
-         "data":"eJwrZWRgKB3Fo3iQYHRAa\/OpbRc5gNbmY7MDlxwlgFrmoJtFTXPJsYMSt1ArnVNiBy3zBql2UDsORwEqAAB9UYRL",
+         "data":"eJztk9sKgCAQRO2j\/f\/wLQiK3LlIzoEec2b3aD9a6+RvwM5gdHagms293\/iIj\/iIj\/iIj\/h478vygeo709kB+u4gfbg7O1C9Y\/b+VrzrM6jmQub81cXgqT9yLmSOqrMD5s6v56pynGethmq2nXxU+n35l5HD7uygMiPCRyWH3VmJajZmzo4+ql2ROarOIYQQ7pzIeXIy",
          "encoding":"base64",
          "height":20,
          "id":3,
@@ -13,13 +13,13 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":25,
+         "width":100,
          "x":0,
          "y":0
         }, 
         {
          "compression":"zlib",
-         "data":"eJyzYGBgsBjFQwqrUIiJtYMSMFzsIDZMR8EooBSwArEgEDMCMRuNzBdD4ovSwB4RLGIuFJpJaXlHSplojkajs3Fhcyzq0M0wRzMfXQyfmdjUo4uBMABT8zDc",
+         "data":"eJztmFEKgzAQRNOP+l9oe4LeIR6g9z9T0w9BloixSTbPMg8GNUZndgMKmUMIs4RhdB8oojC6DxRRGN0HiiiUZH01UK1H74wUStejhtJ+9nr+TGg9WGg9WHh8X2s9zvYPEEIIIYSwXJNuSZekCerhkZHAt87n6voR2tdb6+GRkcI9M\/aGeXhkHEWLvcJ\/EIVlvyGaoz3fUszM23rHrx4eGSmss0ajvdpy8+3Y3v0jHj0zUvgAAWiDpg==",
          "encoding":"base64",
          "height":20,
          "id":1,
@@ -27,7 +27,7 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":25,
+         "width":100,
          "x":0,
          "y":0
         }, 
@@ -107,6 +107,78 @@
                  "width":0,
                  "x":2537.33333333333,
                  "y":1353.33333333333
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":17,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"green_pants"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":5233.34,
+                 "y":2182.67
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":18,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"red_pants"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":5454.67,
+                 "y":2157.34
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":19,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"grey_pants"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":5670.67,
+                 "y":2162.67
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":20,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"red_pants"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":6008,
+                 "y":1420
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -116,7 +188,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJxjYBgFo2AUjIJRMApGwVAHAAfQAAE=",
+         "data":"eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAYH0AAAQ==",
          "encoding":"base64",
          "height":20,
          "id":2,
@@ -124,12 +196,12 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":25,
+         "width":100,
          "x":0,
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":15,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
@@ -142,5 +214,5 @@
  "tilewidth":128,
  "type":"map",
  "version":"1.9",
- "width":25
+ "width":100
 }

@@ -10,6 +10,16 @@ class Enemy(Entity):
         self.facing_direction = FacingDirection.LEFT
         self.texture = self.idle_texture_pair[self.facing_direction.value]
 
+    def face_player(self):
+        if self.game.player.center_x < self.center_x:
+            self.facing_direction = FacingDirection.LEFT
+        elif self.game.player.center_x > self.center_x:
+            self.facing_direction = FacingDirection.RIGHT
+        self.texture = self.idle_texture_pair[self.facing_direction.value]
+
+    def update(self):
+        self.face_player()
+
 
 class RedPantsEnemy(Enemy):
 
