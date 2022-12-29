@@ -21,6 +21,7 @@ class Player(Entity):
         self.bottom = bottom
         self.scene.add_sprite_list("Player")
         self.scene.add_sprite("Player", self)
+        self.scene.add_sprite("Player", self.equip("armor01"))
 
     def update(self):
         # Check for out-of-bounds
