@@ -21,13 +21,18 @@ class Player(Entity):
         self.bottom = bottom
         self.scene.add_sprite_list("Player")
         self.scene.add_sprite("Player", self)
-        self.scene.add_sprite("Player", self.equip("armor01"))
+        self.scene.add_sprite("Player", self.equip("robe01"))
+        self.scene.add_sprite("Player", self.equip("hat02"))
+        self.scene.add_sprite("Player", self.equip("book02"))
 
     def update(self):
         # Check for out-of-bounds
         if self.left < 0:
             self.left = 0
             self.change_x = 0
+
+        self.left = int(self.left)
+        self.bottom = int(self.bottom)
 
     def walk(self):
         self.change_x = 0

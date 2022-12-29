@@ -103,7 +103,7 @@ class Game(arcade.Window):
 
         self.init_player(
             sprite="player",
-            position=(100, TILE_SIZE)
+            position=(TILE_SIZE, TILE_SIZE * 4)
         )
 
         if self.tile_map.background_color:
