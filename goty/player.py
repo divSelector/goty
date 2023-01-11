@@ -17,19 +17,19 @@ class Player(Entity):
         self.bottom = bottom
         self.scene.add_sprite_list("Player")
         self.scene.add_sprite("Player", self)
-        for eq_sprite in ["robe01", "hat02", "book02"]:
-            self.scene.add_sprite("Player", self.equip(eq_sprite))
+        #for eq_sprite in ["robe01", "hat02", "book02"]:
+            #self.scene.add_sprite("Player", self.equip(eq_sprite))
 
     def update(self):
+        super().update()
         # Check for out-of-bounds
         if self.left < 0:
             self.left = 0
             self.change_x = 0
 
-        self.left = int(self.left)
-        self.bottom = int(self.bottom)
 
     def walk(self):
+        self.walking = True
         self.change_x = 0
 
         if self.game.left_pressed and not self.game.right_pressed and not self.crouching:
@@ -53,6 +53,11 @@ class Player(Entity):
         elif not self.game.jump_pressed:
             if not self.game.physics.can_jump():
                 self.change_y = self.change_y / 2
+
+    def attack(self):
+        if self.game.attack_pressed:
+            if not self.attacking:
+                self.attacking = True
 
     def crouch(self):
         if self.game.down_pressed:

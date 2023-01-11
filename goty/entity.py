@@ -13,9 +13,12 @@ class Entity(arcade.Sprite):
         self.jumping = False
         self.crouching = False
         self.is_on_ladder = False
+        self.attacking = False
+        self.walking = False
 
         # Used for image sequences
-        self.cur_texture = 0
+        self.cur_walk_texture = 0
+        self.cur_attack_texture = 0
         self.scale = PLAYER_SCALING
         self.animations = {}
 
@@ -52,6 +55,9 @@ class Entity(arcade.Sprite):
         ## self.set_hit_box([[-22, -64], [22, -64], [22, 28], [-22, 28]])
         #self.set_hit_box(self.texture.hit_box_points)
 
+    def update(self):
+        self.left = int(self.left)
+        self.bottom = int(self.bottom)
 
     def update_animation(self, delta_time: float = 1 / 60):
 
@@ -62,29 +68,48 @@ class Entity(arcade.Sprite):
             self.facing_direction = FacingDirection.RIGHT
 
         # Jumping animation
-        if self.change_y > 0 and not self.is_on_ladder:
-            self.texture = self.jump_texture_pair[self.facing_direction.value]
-            return
-        elif self.change_y < 0 and not self.is_on_ladder:
-            self.texture = self.fall_texture_pair[self.facing_direction.value]
-            return
-
-        # Idle animation
-        if self.change_x == 0 and not self.crouching:
-            self.texture = self.idle_texture_pair[self.facing_direction.value]
-            return
+        if self.change_y > 0:
+            if not self.attacking:
+                self.texture = self.jump_texture_pair[self.facing_direction.value]
+                return
+        elif self.change_y < 0:
+            if not self.attacking:
+                self.texture = self.fall_texture_pair[self.facing_direction.value]
+                return
 
         # Walking animation
-        self.cur_texture += 1
-        if self.cur_texture > 7 * UPDATES_PER_FRAME:
-            self.cur_texture = 0
-        frame = self.cur_texture // UPDATES_PER_FRAME
+        self.cur_walk_texture += 1
+        if self.cur_walk_texture > 7 * UPDATES_PER_FRAME:
+            self.cur_walk_texture = 0
+        frame = self.cur_walk_texture // UPDATES_PER_FRAME
         direction = self.facing_direction.value
         self.texture = self.walk_textures[frame][direction]
 
         # Crouch animation
         if self.crouching:
             self.texture = self.crouch_texture_pair[self.facing_direction.value]
+        #elif self.crouching and self.attacking:
+
+        # Idle animation
+        if self.change_x == 0 and not self.crouching and not self.attacking:
+            self.texture = self.idle_texture_pair[self.facing_direction.value]
+            return
+
+        # Attack animation
+        if self.attacking:
+            if self.crouching:
+                attack_textures = self.crouch_attack_textures
+            elif self.change_y != 0:
+                attack_textures = self.jump_attack_textures
+            else:
+                attack_textures = self.stand_attack_textures
+            self.cur_attack_texture += 1
+            if self.cur_attack_texture > 3 * UPDATES_PER_FRAME:
+                self.cur_attack_texture = 0
+            frame = self.cur_attack_texture // UPDATES_PER_FRAME
+            direction = self.facing_direction.value
+            self.texture = attack_textures[frame][direction]
+
 
     def get_textures(self, value):
         def get_pair(filename):

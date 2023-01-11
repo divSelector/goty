@@ -16,7 +16,9 @@ class Enemy(Entity):
         self.texture = self.idle_texture_pair[self.facing_direction.value]
 
     def update(self):
+        super().update()
         self.face_player()
+
 
 
 class RedPantsEnemy(Enemy):

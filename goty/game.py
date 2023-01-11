@@ -29,6 +29,7 @@ class Game(arcade.Window):
         self.right_pressed = False
         self.jump_pressed = False
         self.down_pressed = False
+        self.attack_pressed = False
 
         self.collect_coin_sound = arcade.load_sound(":resources:sounds/coin1.wav")
         self.jump_sound = arcade.load_sound(":resources:sounds/jump1.wav")
@@ -55,8 +56,6 @@ class Game(arcade.Window):
 
     def setup_level_one(self):
         """Set up the game here. Call this function to start level one."""
-        #self.camera = arcade.Camera(self.width, self.height)
-        #self.hud = arcade.Camera(self.width, self.height)
         self.camera = arcade.Camera()
         self.hud = arcade.Camera()
 
@@ -128,6 +127,9 @@ class Game(arcade.Window):
         if key == arcade.key.Z:
             self.jump_pressed = True
             self.player.jump()
+        elif key == arcade.key.X:
+            self.attack_pressed = True
+            self.player.attack()
         elif key == arcade.key.DOWN:
             self.down_pressed = True
             self.player.crouch()
@@ -148,6 +150,10 @@ class Game(arcade.Window):
             self.jump_pressed = False
             self.player.jump()
             self.player.jumping = False
+        elif key == arcade.key.X:
+            self.attack_pressed = False
+            self.player.attack()
+            self.player.attacking = False
         elif key == arcade.key.DOWN:
             self.down_pressed = False
             self.player.crouch()
@@ -155,9 +161,11 @@ class Game(arcade.Window):
         elif key in [arcade.key.LEFT, arcade.key.A]:
             self.left_pressed = False
             self.player.walk()
+            self.player.walking = False
         elif key in [arcade.key.RIGHT, arcade.key.D]:
             self.right_pressed = False
             self.player.walk()
+            self.player.walking = False
 
         print("RELEASED")
         self.log_user_input()
@@ -209,9 +217,14 @@ class Game(arcade.Window):
         print(
             f"JUMP: {self.jump_pressed}, DOWN: {self.down_pressed}, "+\
                 f"LEFT: {self.left_pressed}, RIGHT: {self.right_pressed}"+\
+                    f"\nATTACK: {self.attack_pressed}"
                     f"\n\tPLAYER POSITION: {self.player.position}"+\
                         f"\n\tPLAYER_CHANGE ({self.player.change_x}, {self.player.change_y})"+\
-                            f"IS_CROUCHING: {self.player.crouching}")
+                            f"\n\tIS_CROUCHING: {self.player.crouching}"+\
+                                f"\n\tIS_ATTACK: {self.player.attacking}"+\
+                                    f"\n\tIS_WALKING: {self.player.walking}"+\
+                                         f"\n\tIS_JUMPINH: {self.player.jumping}"+\
+                                    "")
 
 if __name__ == "__main__":
     pass
