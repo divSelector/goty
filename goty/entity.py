@@ -12,7 +12,6 @@ class Entity(arcade.Sprite):
 
         self.jumping = False
         self.crouching = False
-        self.is_on_ladder = False
         self.attacking = False
         self.walking = False
 
@@ -20,7 +19,8 @@ class Entity(arcade.Sprite):
         self.cur_walk_texture = 0
         self.cur_attack_texture = 0
         self.scale = PLAYER_SCALING
-        self.animations = {}
+
+        self.equipper = None
 
         self.idle_texture_pair = self.get_textures("stand_idle.png")
         self.stand_damaged_texture_pair = self.get_textures("stand_damaged.png")
@@ -60,53 +60,71 @@ class Entity(arcade.Sprite):
         self.bottom = int(self.bottom)
 
     def update_animation(self, delta_time: float = 1 / 60):
+        # Entity is not Equipment
+        if self.equipper is None:
+            change_y = self.change_y
+            change_x = self.change_x
+            crouching, attacking = self.crouching, self.attacking
+            current_walk_texture = self.cur_walk_texture
+            current_attack_texture = self.cur_attack_texture
 
-        # Figure out if we need to flip face left or right
-        if self.change_x < 0 and self.facing_direction == FacingDirection.RIGHT:
-            self.facing_direction = FacingDirection.LEFT
-        elif self.change_x > 0 and self.facing_direction == FacingDirection.LEFT:
-            self.facing_direction = FacingDirection.RIGHT
+            # Figure out if we need to flip face left or right
+            if self.change_x < 0 and self.facing_direction == FacingDirection.RIGHT:
+                self.facing_direction = FacingDirection.LEFT
+            elif self.change_x > 0 and self.facing_direction == FacingDirection.LEFT:
+                self.facing_direction = FacingDirection.RIGHT
+
+        # Entity is Equipment
+        else:
+            change_y = self.equipper.change_y
+            change_x = self.equipper.change_x
+            crouching, attacking = self.equipper.crouching, self.equipper.attacking
+            current_walk_texture = self.equipper.cur_walk_texture
+            current_attack_texture = self.equipper.cur_attack_texture
+
 
         # Jumping animation
-        if self.change_y > 0:
-            if not self.attacking:
+        if change_y > 0:
+            if not attacking:
                 self.texture = self.jump_texture_pair[self.facing_direction.value]
                 return
-        elif self.change_y < 0:
-            if not self.attacking:
+        elif change_y < 0:
+            if not attacking:
                 self.texture = self.fall_texture_pair[self.facing_direction.value]
                 return
+
+        # Idle animation
+        if change_x == 0 and not crouching and not attacking:
+            self.texture = self.idle_texture_pair[self.facing_direction.value]
+            return
+
 
         # Walking animation
         self.cur_walk_texture += 1
         if self.cur_walk_texture > 7 * UPDATES_PER_FRAME:
             self.cur_walk_texture = 0
-        frame = self.cur_walk_texture // UPDATES_PER_FRAME
+        frame = current_walk_texture // UPDATES_PER_FRAME
         direction = self.facing_direction.value
         self.texture = self.walk_textures[frame][direction]
 
-        # Crouch animation
-        if self.crouching:
-            self.texture = self.crouch_texture_pair[self.facing_direction.value]
-        #elif self.crouching and self.attacking:
 
-        # Idle animation
-        if self.change_x == 0 and not self.crouching and not self.attacking:
-            self.texture = self.idle_texture_pair[self.facing_direction.value]
-            return
+        # Crouch animation
+        if crouching:
+            self.texture = self.crouch_texture_pair[self.facing_direction.value]
+
 
         # Attack animation
-        if self.attacking:
-            if self.crouching:
+        if attacking:
+            if crouching:
                 attack_textures = self.crouch_attack_textures
-            elif self.change_y != 0:
+            elif change_y != 0:
                 attack_textures = self.jump_attack_textures
             else:
                 attack_textures = self.stand_attack_textures
             self.cur_attack_texture += 1
             if self.cur_attack_texture > 3 * UPDATES_PER_FRAME:
                 self.cur_attack_texture = 0
-            frame = self.cur_attack_texture // UPDATES_PER_FRAME
+            frame = current_attack_texture // UPDATES_PER_FRAME
             direction = self.facing_direction.value
             self.texture = attack_textures[frame][direction]
 

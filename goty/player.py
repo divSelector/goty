@@ -17,8 +17,8 @@ class Player(Entity):
         self.bottom = bottom
         self.scene.add_sprite_list("Player")
         self.scene.add_sprite("Player", self)
-        #for eq_sprite in ["robe01", "hat02", "book02"]:
-            #self.scene.add_sprite("Player", self.equip(eq_sprite))
+        for eq_sprite in ["robe01", "hat01", "book01"]:
+            self.scene.add_sprite("Player", self.equip(eq_sprite))
 
     def update(self):
         super().update()
@@ -61,7 +61,7 @@ class Player(Entity):
 
     def crouch(self):
         if self.game.down_pressed:
-            if self.game.physics.can_jump() and not self.jumping:
+            if self.game.physics.can_jump():
                 self.change_x = 0
                 # TODO crouching hit box change logic
                 self.crouching = True
