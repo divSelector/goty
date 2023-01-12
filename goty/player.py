@@ -17,7 +17,7 @@ class Player(Entity):
         self.bottom = bottom
         self.scene.add_sprite_list("Player")
         self.scene.add_sprite("Player", self)
-        for eq_sprite in ["robe01", "hat01", "book01"]:
+        for eq_sprite in ["robe01", "helm05", "book01"]:
             self.scene.add_sprite("Player", self.equip(eq_sprite))
 
     def update(self):
