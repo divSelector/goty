@@ -121,22 +121,23 @@ class Game(arcade.Window):
             enemy_sprites=self.scene.get_sprite_list(LAYER_NAME_ENEMIES)
         )
 
+
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
 
         if key == arcade.key.Z:
             self.jump_pressed = True
             self.player.jump()
-        elif key == arcade.key.X:
+        if key == arcade.key.X:
             self.attack_pressed = True
             self.player.attack()
-        elif key == arcade.key.DOWN:
+        if key == arcade.key.DOWN:
             self.down_pressed = True
             self.player.crouch()
-        elif key in [arcade.key.LEFT, arcade.key.A]:
+        if key in [arcade.key.LEFT, arcade.key.A]:
             self.left_pressed = True
             self.player.walk()
-        elif key in [arcade.key.RIGHT, arcade.key.D]:
+        if key in [arcade.key.RIGHT, arcade.key.D]:
             self.right_pressed = True
             self.player.walk()
 
@@ -148,24 +149,22 @@ class Game(arcade.Window):
 
         if key == arcade.key.Z:
             self.jump_pressed = False
-            self.player.jump()
+            #self.player.jump()
             self.player.jumping = False
-        elif key == arcade.key.X:
+        if key == arcade.key.X:
             self.attack_pressed = False
-            self.player.attack()
             self.player.attacking = False
-        elif key == arcade.key.DOWN:
+            self.player.update_movement_speed()
+        if key == arcade.key.DOWN:
             self.down_pressed = False
-            self.player.crouch()
+            #self.player.crouch()
             self.player.crouching = False
-        elif key in [arcade.key.LEFT, arcade.key.A]:
+        if key in [arcade.key.LEFT, arcade.key.A]:
             self.left_pressed = False
-            self.player.walk()
-            self.player.walking = False
-        elif key in [arcade.key.RIGHT, arcade.key.D]:
+            self.player.update_movement_speed()
+        if key in [arcade.key.RIGHT, arcade.key.D]:
             self.right_pressed = False
-            self.player.walk()
-            self.player.walking = False
+            self.player.update_movement_speed()
 
         print("RELEASED")
         self.log_user_input()
@@ -179,6 +178,7 @@ class Game(arcade.Window):
         coin_hit_list = arcade.check_for_collision_with_list(
             self.player, self.scene.get_sprite_list("Coins")
         )
+
 
         for coin in coin_hit_list:
             print(coin.properties)

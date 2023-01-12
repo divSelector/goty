@@ -7,7 +7,7 @@ class Player(Entity):
 
     def __init__(self, sprite, move_speed, jump_speed):
         super().__init__(sprite)
-        self.move_speed = move_speed
+        self.INITIAL_MOVE_SPEED = self.move_speed = move_speed
         self.jump_speed = jump_speed
         self.facing_direction = FacingDirection.RIGHT
 
@@ -17,7 +17,7 @@ class Player(Entity):
         self.bottom = bottom
         self.scene.add_sprite_list("Player")
         self.scene.add_sprite("Player", self)
-        for eq_sprite in ["robe01", "helm05", "book01"]:
+        for eq_sprite in ["robe01", "hat03", "book01"]:
             self.scene.add_sprite("Player", self.equip(eq_sprite))
 
     def update(self):
@@ -27,14 +27,18 @@ class Player(Entity):
             self.left = 0
             self.change_x = 0
 
+    def update_movement_speed(self, new_speed=ATTACK_MOVEMENT_SPEED):
+        self.change_x = 0
+        self.walking = False
+        self.move_speed = new_speed if self.game.keyboard[arcade.key.X] else self.INITIAL_MOVE_SPEED
+        self.walk()
 
     def walk(self):
-        self.walking = True
-        self.change_x = 0
-
         if self.game.left_pressed and not self.game.right_pressed and not self.crouching:
+            self.walking = True
             self.change_x = -self.move_speed
         elif self.game.right_pressed and not self.game.left_pressed and not self.crouching:
+            self.walking = True
             self.change_x = self.move_speed
 
         # Handle Change Direction While Crouching
@@ -42,6 +46,7 @@ class Player(Entity):
             self.facing_direction = FacingDirection.LEFT
         elif self.game.right_pressed and not self.game.left_pressed and self.crouching:
             self.facing_direction = FacingDirection.RIGHT
+
 
     def jump(self):
         if self.game.jump_pressed:
@@ -55,6 +60,7 @@ class Player(Entity):
                 self.change_y = self.change_y / 2
 
     def attack(self):
+        self.update_movement_speed()
         if self.game.attack_pressed:
             if not self.attacking:
                 self.attacking = True
