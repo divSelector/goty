@@ -20,10 +20,45 @@ class Equipment(Entity):
         self.equipper = sprite_to_equip
 
     def update(self):
-        #super().update()
         self.center_x = int(self.equipper.center_x)
         self.center_y = int(self.equipper.center_y)
         self.facing_direction = self.equipper.facing_direction
         self.update_animation()
 
+    def equip(self):
+        raise NotImplementedError("Equipment cannot equip.")
 
+    def wield(self):
+        raise NotImplementedError("Equipment cannot wield.")
+
+
+class Weapon(Equipment):
+
+    def __init__(self, weapon_sprite, sprite_to_wield):
+        super().__init__(weapon_sprite, sprite_to_wield)
+        self.init_textures()
+
+    def init_textures(self):
+        self.idle_texture_pair = self.get_textures("idle_1.png")
+        self.idle_texture_pair_2 = self.get_textures("idle_2.png")
+        self.weapon_1 = self.get_textures("s_1.png")
+        self.weapon_2 = self.get_textures("s_2.png")
+        self.weapon_3 = self.get_textures("s_3.png")
+        self.weapon_4 = self.get_textures("s_4.png")
+
+    def set_texture(self):
+        self.texture = self.idle_texture_pair[self.facing_direction.value]
+
+    def update(self):
+        self.facing_direction = self.equipper.facing_direction
+        if self.facing_direction == FacingDirection.RIGHT:
+            offset = 10
+        if self.facing_direction == FacingDirection.LEFT:
+            offset = -10
+        self.center_x = int(self.equipper.center_x + offset)
+        self.center_y = int(self.equipper.center_y)
+
+        self.update_animation()
+
+    def update_animation(self):
+        pass

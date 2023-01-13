@@ -22,6 +22,16 @@ class Entity(arcade.Sprite):
 
         self.equipper = None
 
+        self.init_textures()
+
+
+
+        ## Hit box will be set based on the first image used. If you want to specify
+        ## a different hit box, you can do it like the code below.
+        ## self.set_hit_box([[-22, -64], [22, -64], [22, 28], [-22, 28]])
+        #self.set_hit_box(self.texture.hit_box_points)
+
+    def init_textures(self):
         self.idle_texture_pair = self.get_textures("stand_idle.png")
         self.stand_damaged_texture_pair = self.get_textures("stand_damaged.png")
         self.jump_texture_pair = self.get_textures("jump_air.png")
@@ -47,13 +57,8 @@ class Entity(arcade.Sprite):
             "crouch_attack_3.png", "crouch_attack_4.png"
         ))
 
-        # Set the initial texture
+    def set_texture(self):
         self.texture = self.idle_texture_pair[self.facing_direction.value]
-
-        ## Hit box will be set based on the first image used. If you want to specify
-        ## a different hit box, you can do it like the code below.
-        ## self.set_hit_box([[-22, -64], [22, -64], [22, 28], [-22, 28]])
-        #self.set_hit_box(self.texture.hit_box_points)
 
     def update(self):
         self.left = int(self.left)
@@ -144,5 +149,8 @@ class Entity(arcade.Sprite):
     def equip(self, equip_name):
         return Equipment(equip_name, self)
 
+    def wield(self, weapon_name):
+        return Weapon(weapon_name, self)
 
-from goty.equipment import Equipment  # This is the only way to do this without circular import
+
+from goty.equipment import Equipment, Weapon  # This is the only way to do this without circular import
