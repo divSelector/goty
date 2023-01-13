@@ -5,10 +5,6 @@ from enum import Enum
 
 _, filename = sys.argv
 
-NUM_ROWS = 4
-NUM_COLS = 8
-SPRITE_WIDTH = 46
-SPRITE_HEIGHT = 50
 
 def add_margin(pil_img,
                top=0,
@@ -25,6 +21,11 @@ def add_margin(pil_img,
 
 
 class SpriteFrame(Enum):
+    def to_filename(self):
+        return f"{self.name.lower()}.png"
+
+
+class AnimatedCharacter(SpriteFrame):
     STAND_IDLE = 1
     CROUCH_IDLE = 2
     STAND_ATTACK_1 = 3
@@ -54,12 +55,28 @@ class SpriteFrame(Enum):
     RUN_7 = 31
     RUN_8 = 32
 
-    def to_filename(self):
-        return f"{self.name.lower()}.png"
+
+class AnimatedSwordAttack(SpriteFrame):
+    IDLE_1 = 1
+    S_1 = 2
+    S_2 = 3
+    IDLE_2 = 4
+    S_3 = 5
+    S_4 = 6
 
 
-COPY_FROM = {3: 11, 4: 12, 5: 13, 6: 14}
-paste_data = {}
+NUM_ROWS = 4
+NUM_COLS = 8
+SPRITE_WIDTH = 46
+SPRITE_HEIGHT = 50
+Frame = AnimatedCharacter
+
+if "sword-slash" in filename:
+    NUM_ROWS = 2
+    NUM_COLS = 3
+    SPRITE_WIDTH = 60
+    SPRITE_HEIGHT = 30
+    Frame = AnimatedSwordAttack
 
 
 sprite_map_path = Path(filename)
@@ -80,7 +97,7 @@ for y in range(NUM_ROWS):
         new_sprite = add_margin(sprite, top=4)
         try:
             new_sprite.save(
-                sprite_dir / SpriteFrame(count).to_filename()
+                sprite_dir / Frame(count).to_filename()
             )
         except ValueError:
             pass
@@ -89,7 +106,7 @@ for y in range(NUM_ROWS):
 if filename[0:3] in ['helm', 'hat']:
     stand_attack_imgs = [
         Image.open(
-            sprite_dir / SpriteFrame(n).to_filename()
+            sprite_dir / Frame(n).to_filename()
         ) for n in range(3, 7)
     ]
 
@@ -105,7 +122,7 @@ if filename[0:3] in ['helm', 'hat']:
 
     jump_attack_imgs = [
         Image.open(
-            sprite_dir / SpriteFrame(n).to_filename()
+            sprite_dir / Frame(n).to_filename()
         ) for n in range(11, 15)
     ]
 
